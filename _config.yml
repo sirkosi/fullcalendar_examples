@@ -1,0 +1,17 @@
+# GitHub Pages Configuration
+
+title: FullCalendar Examples
+description: Interactive FullCalendar examples with drag, remove, and refresh functionality
+baseurl: ""
+url: ""
+
+# Build settings
+markdown: kramdown
+exclude:
+  - README.md
+  - .gitignore
+
+# Include all files (including .json files)
+include:
+  - "*.json"
+  - "*.html"
