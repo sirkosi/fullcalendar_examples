@@ -1,0 +1,11 @@
+[
+  { "id": "building-a", "building": "Building A", "title": "Building A" },
+  { "id": "a1", "building": "Building A", "title": "Team A1" },
+  { "id": "a2", "building": "Building A", "title": "Team A2" },
+  { "id": "building-b", "building": "Building B", "title": "Building B" },
+  { "id": "b1", "building": "Building B", "title": "Team B1" },
+  { "id": "b2", "building": "Building B", "title": "Team B2" },
+  { "id": "building-c", "building": "Building C", "title": "Building C" },
+  { "id": "c1", "building": "Building C", "title": "Team C1" },
+  { "id": "c2", "building": "Building C", "title": "Team C2" }
+]
