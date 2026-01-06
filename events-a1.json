@@ -1,0 +1,34 @@
+[
+  {
+    "id": "a1-1",
+    "resourceId": "a1",
+    "title": "Team Meeting",
+    "start": "2026-01-05T09:00:00",
+    "end": "2026-01-05T10:30:00",
+    "color": "#3788d8"
+  },
+  {
+    "id": "a1-2",
+    "resourceId": "a1",
+    "title": "Project Planning",
+    "start": "2026-01-08T14:00:00",
+    "end": "2026-01-08T16:00:00",
+    "color": "#3788d8"
+  },
+  {
+    "id": "a1-3",
+    "resourceId": "a1",
+    "title": "Code Review",
+    "start": "2026-01-12T10:00:00",
+    "end": "2026-01-12T11:30:00",
+    "color": "#3788d8"
+  },
+  {
+    "id": "a1-4",
+    "resourceId": "a1",
+    "title": "Sprint Demo",
+    "start": "2026-01-15T15:00:00",
+    "end": "2026-01-15T16:30:00",
+    "color": "#3788d8"
+  }
+]

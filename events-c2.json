@@ -1,0 +1,34 @@
+[
+  {
+    "id": "c2-1",
+    "resourceId": "c2",
+    "title": "QA Testing",
+    "start": "2026-01-06T13:00:00",
+    "end": "2026-01-06T16:00:00",
+    "color": "#16a085"
+  },
+  {
+    "id": "c2-2",
+    "resourceId": "c2",
+    "title": "Bug Triage",
+    "start": "2026-01-12T09:00:00",
+    "end": "2026-01-12T10:00:00",
+    "color": "#16a085"
+  },
+  {
+    "id": "c2-3",
+    "resourceId": "c2",
+    "title": "Regression Testing",
+    "start": "2026-01-18T10:00:00",
+    "end": "2026-01-18T14:00:00",
+    "color": "#16a085"
+  },
+  {
+    "id": "c2-4",
+    "resourceId": "c2",
+    "title": "Test Automation",
+    "start": "2026-01-24T14:00:00",
+    "end": "2026-01-24T17:00:00",
+    "color": "#16a085"
+  }
+]
