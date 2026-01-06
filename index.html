@@ -37,6 +37,32 @@
     .controls {
       margin-bottom: 20px;
     }
+
+    #activity-log {
+      margin-top: 20px;
+      padding: 10px;
+      background: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      max-height: 200px;
+      overflow-y: auto;
+      font-family: monospace;
+      font-size: 12px;
+    }
+
+    #activity-log .log-entry {
+      padding: 2px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    #activity-log .log-entry:last-child {
+      border-bottom: none;
+    }
+
+    #activity-log .log-time {
+      color: #666;
+      margin-right: 8px;
+    }
   </style>
 </head>
 <body>
@@ -60,6 +86,11 @@
           <div class='fc-event' data-event='{"title":"Full Day","duration":"08:00","color":"green"}'>
             Full Day (8h)
           </div>
+        </div>
+
+        <div id='activity-log'>
+          <strong>Activity Log:</strong>
+          <div id='log-entries'></div>
         </div>
       </div>
 
@@ -128,7 +159,7 @@
 
         // When external event is dropped
         eventReceive: function(info) {
-          console.log('Event received:', info.event.title);
+          log('Event received: ' + info.event.title);
           updateEventCount();
 
           // You can make an AJAX call here
@@ -137,17 +168,17 @@
 
         // When event is dragged
         eventDrop: function(info) {
-          console.log('Event dropped:', info.event.title);
+          log('Event dropped: ' + info.event.title);
         },
 
         // When event is resized
         eventResize: function(info) {
-          console.log('Event resized:', info.event.title);
+          log('Event resized: ' + info.event.title);
         },
 
         // When event is clicked
         eventClick: function(info) {
-          console.log('Event clicked:', info.event.title, 'ID:', info.event.id || 'no ID');
+          log('Event clicked: ' + info.event.title + ' (ID: ' + (info.event.id || 'no ID') + ')');
         },
 
         // After events are rendered
@@ -179,13 +210,26 @@
         document.getElementById('event-count').textContent = 'Events: ' + count;
       }
 
+      // Log to front-end
+      function log(message) {
+        var logEntries = document.getElementById('log-entries');
+        var entry = document.createElement('div');
+        entry.className = 'log-entry';
+        var time = new Date().toLocaleTimeString();
+        entry.innerHTML = '<span class="log-time">[' + time + ']</span>' + message;
+        logEntries.insertBefore(entry, logEntries.firstChild);
+
+        // Keep only last 50 entries
+        while (logEntries.children.length > 50) {
+          logEntries.removeChild(logEntries.lastChild);
+        }
+      }
+
       // Button: Remove all events
       document.getElementById('btn-remove-all').addEventListener('click', function() {
-        if (confirm('Remove all events from calendar?')) {
-          calendar.removeAllEvents();
-          updateEventCount();
-          console.log('All events removed');
-        }
+        calendar.removeAllEvents();
+        updateEventCount();
+        log('All events removed');
       });
 
       // Button: Cleanup events without ID
@@ -195,43 +239,21 @@
         });
 
         if (eventsWithoutId.length === 0) {
-          console.log('No events without ID found');
+          log('No events without ID found');
           return;
         }
 
-        if (confirm('Remove ' + eventsWithoutId.length + ' event(s) without ID?')) {
-          eventsWithoutId.forEach(function(event) {
-            console.log('Removing event without ID:', event);
-            event.remove();
-          });
-          updateEventCount();
-          console.log('Removed ' + eventsWithoutId.length + ' events without ID');
-        }
-      });
-
-      // Button: Cleanup events without ID
-      document.getElementById('btn-cleanup-no-id').addEventListener('click', function() {
-        var eventsWithoutId = calendar.getEvents().filter(function(event) {
-          return !event.id;
+        eventsWithoutId.forEach(function(event) {
+          log('Removing event without ID: ' + event.title);
+          event.remove();
         });
-        console.log('Events without ID:', eventsWithoutId);
-        if (eventsWithoutId.length === 0) {
-          console.log('No events without ID found');
-          return;
-        }
-
-        if (confirm('Remove ' + eventsWithoutId.length + ' event(s) without ID?')) {
-          eventsWithoutId.forEach(function(event) {
-            event.remove();
-          });
-          updateEventCount();
-          console.log('Removed ' + eventsWithoutId.length + ' events without ID');
-        }
+        updateEventCount();
+        log('Removed ' + eventsWithoutId.length + ' events without ID');
       });
 
       // Button: Refetch Team A1
       document.getElementById('btn-refetch-a1').addEventListener('click', function() {
-        console.log('Refetching Team A1 events...');
+        log('Refetching Team A1 events...');
         var source = calendar.getEventSourceById('events-a1');
         if (source) {
           source.refetch();
@@ -240,7 +262,7 @@
 
       // Button: Refetch Team B1
       document.getElementById('btn-refetch-b1').addEventListener('click', function() {
-        console.log('Refetching Team B1 events...');
+        log('Refetching Team B1 events...');
         var source = calendar.getEventSourceById('events-b1');
         if (source) {
           source.refetch();
@@ -249,7 +271,7 @@
 
       // Button: Refetch Team C1
       document.getElementById('btn-refetch-c1').addEventListener('click', function() {
-        console.log('Refetching Team C1 events...');
+        log('Refetching Team C1 events...');
         var source = calendar.getEventSourceById('events-c1');
         if (source) {
           source.refetch();
@@ -258,7 +280,7 @@
 
       // Button: Refetch all sources
       document.getElementById('btn-refetch-all').addEventListener('click', function() {
-        console.log('Refetching all sources...');
+        log('Refetching all sources...');
         calendar.refetchEvents();
         // Alternative: calendar.refetchResources();
       });
